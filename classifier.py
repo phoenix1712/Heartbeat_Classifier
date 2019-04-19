@@ -243,7 +243,7 @@ if (args.option == 'train'):
           hidden_dims=hidden_dims,
           nb_epoch=nb_epoch,
           nb_classes=nb_classes,
-          optimizer=sgd,
+          optimizer=Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=1e-5),
           loss=loss,
           test_split=test_split,
           seed=seed,
@@ -255,7 +255,7 @@ if (args.option == 'train'):
 elif (args.option == 'test'):
     test(model_json=model_json,
          weights=weights,
-         optimizer=sgd,
+         optimizer=Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=1e-5),
          loss=loss,
          filename=str(args.inputfile))
 elif (args.option == 'evaluate'):
@@ -266,7 +266,7 @@ elif (args.option == 'evaluate'):
     # Loads pre-trained weights for the model
     model.load_weights(weights)
     # Compiles the model
-    model.compile(loss=loss, optimizer=sgd)
+    model.compile(loss=loss, optimizer=Adam(lr=0.0001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0))
     for index, row in testSet.iterrows():
         #print("Index : ", index)
         pred = test(model_json=model_json,
