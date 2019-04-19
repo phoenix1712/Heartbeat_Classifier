@@ -9,8 +9,8 @@ import pygame
 from pygame import mixer
 from keras.models import model_from_json
 
-model_json='hb_model_orthogonal_experiment_norm.json'
-weights='hb_weights_orthogonal_experiment_norm.hdf5'
+model_json='hb_model_orthogonal_experiment_norm_vgg16_adam.json'
+weights='hb_weights_orthogonal_experiment_norm_vgg16_adam.hdf5'
 
 # Loads model from Json file
 model = model_from_json(open(model_json).read())
@@ -43,10 +43,10 @@ def showAudioFile():
     t1.update()
     t1.configure(state='disabled')
 
+    global file
     file = askopenfilename(title='Open Image')
     T.configure(state='normal')
     T.delete(0.0, tkinter.END)
-    global file_name
     file_name = file[file.rfind("/") + 1:]
     T.insert('insert', file_name)
     T.tag_add('highlight1', '1.0', '20.0')
@@ -77,8 +77,8 @@ continue_button.grid(row=2, column=1)
 
 
 def classify():
-    print(c.test(file_name, model))
-    if c.test(file_name, model) == 0:
+    print(c.test(file, model))
+    if c.test(file, model) == 0:
         text = label_name[1]
         bgcolor = 'green'
     else:

@@ -19,7 +19,7 @@ def test(filename,
 
     # Makes predictions for each 129x129 square
     for frame in X:
-        predict_frame = np.zeros((1, 3, 129, 129))
+        predict_frame = np.zeros((1, 129, 129, 3))
         predict_frame[0] = frame
         predictions_all = model.predict_proba(predict_frame, batch_size=batch_size)
         predictions[z] = predictions_all[0][1]
